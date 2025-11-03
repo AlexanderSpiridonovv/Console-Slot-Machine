@@ -48,7 +48,7 @@ void Slot::_printMatrix()const
         {
             std::cout << symbolToStringForSlot(m_slot[i][j]) << ' ';
         }
-        std::cout << std::endl << std::endl;
+        std::cout << "\n\n";
     }
 }
 
@@ -118,7 +118,7 @@ auto Slot::_getWinnigsAmount(const std::pair<Symbol,int>& win)const -> int
     int winningAmount = it -> second;
     return winningAmount;
 }
-
+//ask about that
 void Slot::_printWinnigsHelper(const std::pair<Symbol,int>& win)const
 {
     int currentWin = _getWinnigsAmount(win);
@@ -132,10 +132,10 @@ void Slot::_printWinnigsHelper(const std::pair<Symbol,int>& win)const
         //predefined operator <<
         std::cout << win.first << ' ';
     }
-    std::cout << "= " << currentWin << std::endl;
+    std::cout << "= " << currentWin << '\n';
 }
 
-void Slot::_printWinnigsHelper(int i, const std::pair<Symbol,int>& win)const
+void Slot::_printWinnigsHelperForLine(int N, const std::pair<Symbol,int>& win)const
 {
     int currentWin = _getWinnigsAmount(win);
 
@@ -144,13 +144,13 @@ void Slot::_printWinnigsHelper(int i, const std::pair<Symbol,int>& win)const
         return;
     }
 
-    std::cout << "L" << i << "  -->  ";
+    std::cout << "L" << N << "  -->  ";
     for(int i = 0; i < win.second; i++)
     {
         //predefined operator <<
         std::cout << win.first << ' ';
     }
-    std::cout << "= " << currentWin << std::endl;
+    std::cout << "= " << currentWin << '\n';
 }
 
 auto Slot::_getWinnigsFromLine(const std::vector<int>& line)const -> int
@@ -169,8 +169,8 @@ void Slot::_printWinnigsFromLineN(int N, const std::vector<int>& line)const
     const auto& normalPair =  _getNormalSymbolKeyByLine(line);
     const auto& wildPair = _getWildKeyByLine(line);
  
-    _printWinnigsHelper(N, normalPair);
-    _printWinnigsHelper(N, wildPair);
+    _printWinnigsHelperForLine(N, normalPair);
+    _printWinnigsHelperForLine(N, wildPair);
 }
 
 auto Slot::_getScatterWinAmount()const -> int
@@ -206,8 +206,11 @@ void Slot::_printAllWinnings()const
         i++;
     }
 
-    _printWinnigsHelper({Symbol::SCATTER, m_scatterCount});
-    std::cout << std::endl << "Total win: " << totalWin << std::endl;
+    if(m_scatterCount >= 3)
+    {
+        _printWinnigsHelper({Symbol::SCATTER, m_scatterCount});
+    }
+    std::cout << "\nTotal win: " << totalWin << '\n';
 }
 
 void Slot::Play()

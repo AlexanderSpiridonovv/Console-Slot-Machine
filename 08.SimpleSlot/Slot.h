@@ -30,7 +30,7 @@ private:
     
     void _printMatrix()const;
     void _printWinnigsHelper(const std::pair<Symbol,int>& win) const;
-    void _printWinnigsHelper(int N, const std::pair<Symbol,int>& win) const;
+    void _printWinnigsHelperForLine(int N, const std::pair<Symbol,int>& win) const;
     void _printWinnigsFromLineN(int N, const std::vector<int>& line) const;
     void _printAllWinnings() const;
 };
