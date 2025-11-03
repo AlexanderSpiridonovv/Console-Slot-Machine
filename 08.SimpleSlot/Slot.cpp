@@ -7,35 +7,53 @@
 
 const int INVALID_KEY = -1;
 
-auto Slot::_generateSymbol()const -> Symbol
+auto Slot::_generateSymbol(int max)const -> Symbol
 {
     static std::mt19937 rng(std::random_device{}());
-    std::uniform_int_distribution<int> dist(0, SymbolCount - 1); // 10 symbols total
+    std::uniform_int_distribution<int> dist(0, max);
     return static_cast<Symbol>(dist(rng));
 }
-
+auto Slot::_generateSymbolNoScatter() const -> Symbol
+{
+    return _generateSymbol(SymbolCount - 2); //Scatter is last
+}
+auto Slot::_generateSymbolWithScatter() const -> Symbol
+{
+    return _generateSymbol(SymbolCount - 1); //All symbols
+}
 void Slot::_populateSlot()
 {
     m_scatterCount = 0;
 
     for(int col = 0; col < Reels; col++)
     {
-        bool scatterUsed = false;
-        for(int row = 0; row < Rows; row++)
+        if(col % 2 == 0) //only on selected reels
         {
-            Symbol symbol; 
-            do
+            bool scatterUsed = false;
+            for(int row = 0; row < Rows; row++)
             {
-               symbol = _generateSymbol();
-            } while(scatterUsed && symbol == Symbol::SCATTER);
+                Symbol symbol; 
+                do
+                {
+                symbol = _generateSymbolWithScatter();
+                } while(scatterUsed && symbol == Symbol::SCATTER);
 
-            if(symbol == Symbol::SCATTER)
-            {
-                scatterUsed = true;
-                m_scatterCount++;
+                if(symbol == Symbol::SCATTER)
+                {
+                    scatterUsed = true;
+                    m_scatterCount++;
+                }
+
+                m_slot[row][col] = symbol;
             }
-
-            m_slot[row][col] = symbol;
+        }
+        else
+        {
+           for(int row = 0; row < Rows; row++)
+           {
+                Symbol symbol = _generateSymbolNoScatter();
+                m_slot[row][col] = symbol;
+           }
         }
     }
 }
@@ -199,11 +217,11 @@ void Slot::_printAllWinnings()const
        return;
     }
 
-    int i = 1;
+    int N = 1;
     for(const auto& line : lines)
     {
-        _printWinnigsFromLineN(i, line);
-        i++;
+        _printWinnigsFromLineN(N, line);
+        N++;
     }
 
     if(m_scatterCount >= 3)

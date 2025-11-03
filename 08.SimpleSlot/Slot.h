@@ -17,7 +17,9 @@ private:
     Symbol m_slot [Rows][Reels];
     int m_scatterCount = 0;
     
-    auto _generateSymbol() const -> Symbol;
+    auto _generateSymbol(int max) const -> Symbol;
+    auto _generateSymbolNoScatter() const -> Symbol;
+    auto _generateSymbolWithScatter() const -> Symbol;
     void _populateSlot();
     
     auto _loopHelper(int idx, const std::vector<int>& line, const Symbol& symbol)const -> int;

@@ -21,5 +21,5 @@ const std::unordered_map<std::pair<Symbol, int>, int, SymbolCountHash> PayoutTab
     {{Symbol::PLUM, 3}, 40},    {{Symbol::PLUM, 4}, 80},    {{Symbol::PLUM, 5}, 160},
     {{Symbol::WATERMELON, 3}, 50}, {{Symbol::WATERMELON, 4}, 100}, {{Symbol::WATERMELON, 5}, 150},
     {{Symbol::WILD, 3}, 80},   {{Symbol::WILD, 4}, 200},   {{Symbol::WILD, 5}, 700},
-    {{Symbol::SCATTER, 3}, 100}, {{Symbol::SCATTER, 4}, 250}, {{Symbol::SCATTER, 5}, 1000}
+    {{Symbol::SCATTER, 3}, 100}
 };
