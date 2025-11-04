@@ -21,9 +21,11 @@ void Player::Play()
     {
         throw std::logic_error("Not enough funds to play, please deposit more");
     }
+    
     m_balance -= playCost;
-    m_slot -> Play();
-    m_balance += m_slot -> GetTotalWinnings();
+    m_balance += m_slot -> Play();
+    m_balance += m_slot -> PlayFreeGames();
+   
 }
 
 void Player::DisplayInfo()const

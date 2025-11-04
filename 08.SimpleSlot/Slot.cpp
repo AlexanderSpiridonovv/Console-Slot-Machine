@@ -4,6 +4,8 @@
 #include <iostream>
 #include <random>
 #include <utility>
+#include <thread>
+#include <chrono>
 
 const int INVALID_KEY = -1;
 
@@ -56,11 +58,12 @@ void Slot::_populateSlot()
            }
         }
     }
-    m_slot[0][0] = Symbol::WILD;
+    /*m_slot[0][0] = Symbol::WILD;
     m_slot[0][1] = Symbol::WILD;
     m_slot[0][2] = Symbol::WILD;
     m_slot[0][3] = Symbol::WILD;
-    m_slot[0][4] = Symbol::WILD;
+    m_slot[0][4] = Symbol::WILD;*/
+    //m_scatterCount = 3;
 }
 
 void Slot::_printMatrix()const
@@ -73,6 +76,11 @@ void Slot::_printMatrix()const
         }
         std::cout << "\n\n";
     }
+}
+
+auto Slot::GetScatterCount() -> int
+{
+    return m_scatterCount;
 }
 
 auto Slot::_forwardLoopHelper(int idx, const std::vector<int>& line, const Symbol& symbol) const -> int
@@ -284,9 +292,8 @@ auto Slot::GetTotalWinnings()const -> int
     return totalWin;
 }
 
-void Slot::_printAllWinnings()const
+void Slot::_printAllWinnings(int totalWin)const
 {
-    int totalWin = GetTotalWinnings();
     if(totalWin == 0)
     {
        return;
@@ -305,12 +312,84 @@ void Slot::_printAllWinnings()const
     }
     std::cout << "\nTotal win: " << totalWin << '\n';
 }
-
-void Slot::Play()
+auto Slot::Play() -> int
 {
     _populateSlot();
     _printMatrix();
     std::cout << "\n----------------------------------------------------------------\n\n";
-    _printAllWinnings();
+    int total = GetTotalWinnings();
+    _printAllWinnings(total);
     std::cout << "\n----------------------------------------------------------------\n\n";
+    return total;
 }
+
+void Slot::countdown(int seconds)const
+{
+    for (int i = seconds; i > 0; i--) {
+        std::cout << i << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    std::cout << "\nGo!\n";
+}
+
+auto Slot::_playFreeSpin(int &spinsRemaining) -> int
+{
+    std::cin.clear();
+    //saw it on internet, tries to clear input during countdown
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::cout << "Spins remaining: " << spinsRemaining << "\n\n";
+    std::cout << "Press p to spin\n\n";
+
+
+    std::string choice;
+    std::cin >>choice;
+
+    if(choice != "p")
+    {
+        throw std::invalid_argument("You can only enter p in free spins");
+    }
+
+    int totalWon = Play();
+
+    if(m_scatterCount >= 3)
+    {
+        std::cout << "\nCongrats, you get 10 more spins\n";
+        spinsRemaining += FreeSpins;
+    }
+
+    return totalWon;
+}
+
+auto Slot::PlayFreeGames() -> int
+{
+    if(m_scatterCount < 3)
+    {
+        return 0;
+    }
+
+    //Congratulations 3s
+    std::cout << "\nCONGRATS, YOU WON 10 FREE SPINS!\n";
+    countdown(3);
+
+    
+
+    int totalWon = 0;
+
+    for(int i = FreeSpins; i > 0; i--)
+    {
+        try
+        {
+            totalWon += _playFreeSpin(i);
+        }
+        catch(const std::invalid_argument& e)
+        {
+            //i gets decremented if an exception is thrown
+            i++;
+           std::cout << "\n❌ " << e.what() << "\n";
+        }
+    }
+    std::cout << "Your total winnings are : " << totalWon << '\n';
+    return totalWon;
+}
+

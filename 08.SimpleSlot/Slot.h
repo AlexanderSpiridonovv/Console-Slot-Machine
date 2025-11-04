@@ -7,12 +7,15 @@
 const int Reels = 5;
 const int Rows = 3;
 const int SymbolCount = 10;
+const int FreeSpins = 10;
 
 class Slot
 {
 public:
     auto GetTotalWinnings() const -> int;
-    void Play();
+    auto Play() -> int;
+    auto PlayFreeGames() -> int;
+    auto GetScatterCount() -> int;
 private:
     Symbol m_slot [Rows][Reels];
     int m_scatterCount = 0;
@@ -38,5 +41,9 @@ private:
     void _printWinnigsHelper(const std::pair<Symbol,int>& win) const;
     void _printWinnigsHelperForLine(int N, const std::pair<Symbol,int>& win) const;
     void _printWinnigsFromLineN(int N, const std::vector<int>& line) const;
-    void _printAllWinnings() const;
+    void _printAllWinnings(int totalWin)const;
+
+    void countdown(int seconds)const;
+
+    auto _playFreeSpin(int &spinsRemaining) -> int;
 };
