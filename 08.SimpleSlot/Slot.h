@@ -16,6 +16,7 @@ public:
     auto Play() -> int;
     auto PlayFreeGames() -> int;
     auto GetScatterCount() -> int;
+    
 private:
     Symbol m_slot [Rows][Reels];
     int m_scatterCount = 0;
@@ -43,7 +44,6 @@ private:
     void _printWinnigsFromLineN(int N, const std::vector<int>& line) const;
     void _printAllWinnings(int totalWin)const;
 
-    void countdown(int seconds)const;
 
-    auto _playFreeSpin(int &spinsRemaining) -> int;
+    //auto _playFreeSpin(int &spinsRemaining) -> int;
 };

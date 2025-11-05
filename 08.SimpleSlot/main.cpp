@@ -1,29 +1,57 @@
 #include <iostream>
 #include "Player.h"
-
+#include "Menu.h"
 using namespace std;
 
-void DisplayMenu() 
-{
-    cout << "\n╔════════════════════════════════╗\n";
-    cout << "║      🎰 SLOT MACHINE 🎰        ║\n";
-    cout << "╚════════════════════════════════╝\n";
-    cout << "Make your choice:\n";
-    cout << "1. Press '1' to insert credit\n";
-    cout << "2. Press 'p' to play\n";
-    cout << "3. Press 'i' for info\n";
-    cout << "4. Press '3' to cashout and exit\n";
-    cout << "────────────────────────────────\n\n";
-    cout << "Your choice: ";
-}
-
-void ClearInputBuffer() 
-{
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}
 
 int main()
+{
+    Slot slot;
+    Player player(0, slot);
+    Menu menu(player);
+
+    menu.WelcomeMenu();
+    
+    string choice;
+    bool running = true;
+    
+    while (running) 
+    {
+        menu.DisplayMenu();
+
+        cin >> choice;
+        
+        if (choice == "1") 
+        {
+            menu.InsertCredit();
+        }
+        else if (choice == "p" || choice == "P") 
+        {
+            menu.Spin();
+            if(player.StartFreeGames())
+            {
+                menu.PlayFreeGames();
+            }
+            
+        }
+        else if (choice == "i" || choice == "I") 
+        {
+            menu.DisplayInfo();
+        }
+        else if (choice == "3") 
+        {
+            running = false;
+            menu.CashOut();
+        }
+        else 
+        {
+            cout << "\n❌ Invalid choice! Please try again.\n";
+        }
+    }
+    
+    return 0;
+}
+/*int main()
 {
     Slot slot;
     Player player(0, slot);
@@ -38,6 +66,7 @@ int main()
     while (running) 
     {
         DisplayMenu();
+
         cin >> choice;
         
         if (choice == "1") 
@@ -60,6 +89,14 @@ int main()
                 cout << "\n";
                 cout << "\n";
                 player.Play();
+                if(slot.GetScatterCount() >= 3)
+                {
+                    slot.Countdown(3);
+                    for(int i = 0; i < FreeSpins; i++)
+                    {
+                        
+                    }
+                }
             }
             
             catch (const logic_error& e) {
@@ -72,9 +109,9 @@ int main()
         }
         else if (choice == "3") 
         {
+            running = false;
             try {
                 player.CashOut();
-                running = false;
                 cout << "\nThank you for playing! 🎰\n";
             }
             catch (const logic_error& e) {
@@ -88,4 +125,4 @@ int main()
     }
     
     return 0;
-}
+}*/

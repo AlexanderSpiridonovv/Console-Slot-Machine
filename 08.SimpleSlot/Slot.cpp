@@ -191,7 +191,7 @@ auto Slot::_getWildKeyByLineBackward(const std::vector<int>& line)const -> std::
 {
     int count = Reels - _getConsecutiveWildsByLineBackward(line) - 1;
     //5 wilds handled in forward pass
-    if(count >= 5)
+    if(count >= Reels)
     {
         return {Symbol::WILD, INVALID_KEY};
     }
@@ -323,16 +323,9 @@ auto Slot::Play() -> int
     return total;
 }
 
-void Slot::countdown(int seconds)const
-{
-    for (int i = seconds; i > 0; i--) {
-        std::cout << i << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-    std::cout << "\nGo!\n";
-}
 
-auto Slot::_playFreeSpin(int &spinsRemaining) -> int
+
+/*auto Slot::_playFreeSpin(int &spinsRemaining) -> int
 {
     std::cin.clear();
     //saw it on internet, tries to clear input during countdown
@@ -367,13 +360,9 @@ auto Slot::PlayFreeGames() -> int
     {
         return 0;
     }
-
     //Congratulations 3s
     std::cout << "\nCONGRATS, YOU WON 10 FREE SPINS!\n";
-    countdown(3);
-
-    
-
+    Countdown(3);
     int totalWon = 0;
 
     for(int i = FreeSpins; i > 0; i--)
@@ -393,3 +382,4 @@ auto Slot::PlayFreeGames() -> int
     return totalWon;
 }
 
+*/

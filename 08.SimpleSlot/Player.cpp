@@ -3,7 +3,7 @@
 Player::Player(unsigned balance, Slot& slot)
 {
     m_balance = balance;
-    m_slot = std::make_unique<Slot>(slot);
+    m_slot = std::make_shared<Slot>(slot);
 }
 
 void Player::Deposit(unsigned deposit)
@@ -23,9 +23,7 @@ void Player::Play()
     }
     
     m_balance -= playCost;
-    m_balance += m_slot -> Play();
-    m_balance += m_slot -> PlayFreeGames();
-   
+    m_balance += m_slot -> Play();   
 }
 
 void Player::DisplayInfo()const
@@ -37,4 +35,13 @@ void Player::CashOut()
 {
     std::cout << "Total out: " << m_balance << std::endl; 
     m_slot = nullptr;
+}
+
+auto Player::StartFreeGames()const -> bool
+{
+    return m_slot -> GetScatterCount() >= 3;
+}
+auto Player::GetPtr()const -> std::shared_ptr<Slot>
+{
+    return m_slot;
 }
