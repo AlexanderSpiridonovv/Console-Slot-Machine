@@ -27,10 +27,18 @@ int main()
         }
         else if (choice == "p" || choice == "P") 
         {
-            menu.Spin();
-            if(player.StartFreeGames())
+            int normalWin = menu.Spin();
+            int freeWin = 0;
+            if(player.CanStartFreeGames())
             {
-                menu.PlayFreeGames();
+                freeWin = menu.PlayFreeGames();
+            }
+            //current win
+            int totalWin = normalWin + freeWin;
+            if(totalWin > 0)
+            {
+                int toDeposit = menu.Gamble(totalWin);
+                menu.Deposit(toDeposit);
             }
             
         }
