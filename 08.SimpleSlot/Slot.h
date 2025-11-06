@@ -44,6 +44,4 @@ private:
     void _printWinnigsFromLineN(int N, const std::vector<int>& line) const;
     void _printAllWinnings(int totalWin)const;
 
-
-    //auto _playFreeSpin(int &spinsRemaining) -> int;
 };

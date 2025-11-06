@@ -22,11 +22,10 @@ auto Player::Play() -> int
     {
         throw std::logic_error("Not enough funds to play, please deposit more");
     }
-    //variable
+
     int win = m_slot -> Play();
     m_balance -= playCost;
     DisplayInfo();
-    //m_balance += win;   
     return win;
 }
 
@@ -61,7 +60,7 @@ auto Player::_generateRedBlack()const -> char
     }
     return 'B';
 }
-auto Player::Gamble(char input, int initialSum) -> int
+auto Player::SimpleGamble(char input, int initialSum) -> int
 {
     if(input == _generateRedBlack())
     {
