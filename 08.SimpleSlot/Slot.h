@@ -18,7 +18,7 @@ public:
     auto GetScatterCount() -> int;
 
     void SetDemoMode(bool);
-    Slot& operator=(const std::vector<std::vector<Symbol>> slot);
+    Slot& operator=(const std::vector<std::vector<Symbol>>& slot);
     
 private:
     Symbol m_slot [Rows][Reels];

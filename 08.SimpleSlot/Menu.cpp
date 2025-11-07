@@ -232,8 +232,8 @@ void Menu::PlayDemo()
     m_player -> GetPtr() -> SetDemoMode(true);
     while(running)
     {
-        std::cout << "\nEnter 0 for 3 Scatters\n";
-        std::cout << "Enter 1 for 5 WILDS\n";
+        std::cout << "Enter 0 for 3 SCATTERS\n";
+        std::cout << "Enter 1 for 5 WILDS";
         PlayFeature();//the cin is in _populateSlot
         std::cout << "\nIf you still want to be in demo mode, press 'y', else press 'n'.\n";
         std::string choice;

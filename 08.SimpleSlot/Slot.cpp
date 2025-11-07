@@ -81,7 +81,7 @@ void Slot::_printMatrix()const
         std::cout << "\n\n";
     }
 }
-Slot& Slot::operator=(const std::vector<std::vector<Symbol>> slot)
+Slot& Slot::operator=(const std::vector<std::vector<Symbol>>& slot)
 {
     for(int i = 0; i < Rows; i++)
     {
