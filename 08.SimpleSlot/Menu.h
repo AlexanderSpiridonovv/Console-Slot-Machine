@@ -18,9 +18,9 @@ public:
     auto PlayFreeGames() -> int;
     auto StartFreeGames()const -> bool;
     auto Gamble(int initialSum)const -> int;
-
-    void PlayDemo();
+    void PlayDemoSafe();
 private:
     auto _playFreeSpin(int &spinsRemaining) const -> int;
+    void _playDemo();
     std::shared_ptr<Player> m_player = nullptr;
 };

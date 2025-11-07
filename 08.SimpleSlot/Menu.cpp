@@ -66,7 +66,11 @@ auto Menu::Spin() -> int
         
         return win;
     }
-            
+    //here vector.at() is caught
+    catch (const std::out_of_range& e) 
+    {
+        std::cout << "\n❌ Out of bounds: " << e.what() << "\n";
+    }
     catch (const std::logic_error& e) 
     {
         std::cout << "\n❌ " << e.what() << "\n";
@@ -225,8 +229,12 @@ void Menu::PlayFeature()
         Deposit(toDeposit);
     }
 }
-void Menu::PlayDemo()
+void Menu::_playDemo()
 {
+    if(m_player -> GetBalance() < playCost)
+    {
+        throw std::logic_error("Insufficient funds, deposit more to enter Demo mode.");
+    }
     std::cout << "\nYOU ENTERED DEMO MODE ! \n\n";
     bool running = true;
     m_player -> GetPtr() -> SetDemoMode(true);
@@ -257,4 +265,17 @@ void Menu::PlayDemo()
         }
     }
     m_player -> GetPtr() -> SetDemoMode(false);
+}
+
+void Menu::PlayDemoSafe()
+{
+    try 
+    {      
+        _playDemo();
+    }
+            
+    catch (const std::logic_error& e) 
+    {       
+        std::cout << "\n❌ " << e.what() << "\n";    
+    }
 }

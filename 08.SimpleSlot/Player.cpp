@@ -45,6 +45,11 @@ auto Player::CanStartFreeGames()const -> bool
     return m_slot -> GetScatterCount() >= scattersNeeded;
 }
 
+auto Player::GetBalance()const -> int
+{
+    return m_balance;
+}
+
 auto Player::GetPtr()const -> std::shared_ptr<Slot>
 {
     return m_slot;

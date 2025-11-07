@@ -30,7 +30,6 @@ void Slot::_populateSlot()
     {
         unsigned i;
         std::cin >> i;
-        
         *this = configurations.at(i);
         return;
     }

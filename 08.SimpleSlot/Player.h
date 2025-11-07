@@ -16,6 +16,7 @@ public:
     void CashOut();
     auto SimpleGamble(char input, int initialSum) -> int;
     auto CanStartFreeGames()const -> bool;
+    auto GetBalance()const -> int;
     auto GetPtr()const -> std::shared_ptr<Slot>;
     
 private:

@@ -26,21 +26,7 @@ int main()
         }
         else if (choice == "p" || choice == "P") 
         {
-            /*int normalWin = menu.Spin();
-            int freeWin = 0;
-            if(player.CanStartFreeGames())
-            {
-                freeWin = menu.PlayFreeGames();
-            }
-            //current win
-            int totalWin = normalWin + freeWin;
-            if(totalWin > 0)
-            {
-                int toDeposit = menu.Gamble(totalWin);
-                menu.Deposit(toDeposit);
-            }*/
             menu.PlayFeature();
-            
         }
         else if (choice == "i" || choice == "I") 
         {
@@ -53,7 +39,7 @@ int main()
         }
         else if (choice == "d") 
         {
-            menu.PlayDemo();
+            menu.PlayDemoSafe();
         }
         else 
         {
