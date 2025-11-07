@@ -1,6 +1,7 @@
 #include "Slot.h"
 #include "PayoutTable.h"
 #include "VectorOfLines"
+#include "Configurations"
 #include <iostream>
 #include <random>
 #include <utility>
@@ -25,6 +26,14 @@ auto Slot::_generateSymbolWithScatter() const -> Symbol
 }
 void Slot::_populateSlot()
 {
+    if(m_demoMode)
+    {
+        unsigned i;
+        std::cin >> i;
+        
+        *this = configurations.at(i);
+        return;
+    }
     m_scatterCount = 0;
 
     for(int col = 0; col < Reels; col++)
@@ -58,6 +67,7 @@ void Slot::_populateSlot()
            }
         }
     }
+    //m_scatterCount = 3;
 }
 
 void Slot::_printMatrix()const
@@ -71,7 +81,24 @@ void Slot::_printMatrix()const
         std::cout << "\n\n";
     }
 }
+Slot& Slot::operator=(const std::vector<std::vector<Symbol>> slot)
+{
+    for(int i = 0; i < Rows; i++)
+    {
+        for(int j = 0; j < Reels; j++)
+        {
+            m_slot[i][j] = slot[i][j];
+        }
+        
+    }
+    m_scatterCount = _calculateScatterCount(slot);
 
+    return *this;
+}
+void Slot::SetDemoMode(bool mode)
+{
+    m_demoMode = mode;
+}
 auto Slot::GetScatterCount() -> int
 {
     return m_scatterCount;
@@ -306,6 +333,7 @@ void Slot::_printAllWinnings(int totalWin)const
     }
     std::cout << "\nTotal win: " << totalWin << '\n';
 }
+
 auto Slot::Play() -> int
 {
     _populateSlot();
@@ -317,3 +345,23 @@ auto Slot::Play() -> int
     return total;
 }
 
+void Slot::_setScattersToThree()
+{
+    m_scatterCount = 3;
+}
+//can be slightly optimized
+auto Slot::_calculateScatterCount(const std::vector<std::vector<Symbol>> slot)const -> int
+{
+    int count = 0;
+    for(int i = 0; i < Rows; i++)
+    {
+        for(int j = 0; j < Reels; j++)
+        {
+            if(slot[i][j] == Symbol::SCATTER)
+            {
+                count++;
+            }
+        }
+    }
+    return count;
+}

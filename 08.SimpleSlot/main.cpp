@@ -1,8 +1,7 @@
 #include <iostream>
 #include "Player.h"
 #include "Menu.h"
-using namespace std;
-
+//#include "Configurations"
 
 int main()
 {
@@ -12,14 +11,14 @@ int main()
 
     menu.WelcomeMenu();
     
-    string choice;
+    std::string choice;
     bool running = true;
     
     while (running) 
     {
         menu.DisplayMenu();
 
-        cin >> choice;
+        std::cin >> choice;
         
         if (choice == "1") 
         {
@@ -27,7 +26,7 @@ int main()
         }
         else if (choice == "p" || choice == "P") 
         {
-            int normalWin = menu.Spin();
+            /*int normalWin = menu.Spin();
             int freeWin = 0;
             if(player.CanStartFreeGames())
             {
@@ -39,7 +38,8 @@ int main()
             {
                 int toDeposit = menu.Gamble(totalWin);
                 menu.Deposit(toDeposit);
-            }
+            }*/
+            menu.PlayFeature();
             
         }
         else if (choice == "i" || choice == "I") 
@@ -51,9 +51,13 @@ int main()
             running = false;
             menu.CashOut();
         }
+        else if (choice == "d") 
+        {
+            menu.PlayDemo();
+        }
         else 
         {
-            cout << "\n❌ Invalid choice! Please try again.\n";
+            std::cout << "\n❌ Invalid choice! Please try again.\n";
         }
     }
     

@@ -1,0 +1,21 @@
+#include <vector>
+#include "Slot.h"
+
+std::vector<std::vector<std::vector<Symbol>>> configurations = 
+{
+    
+    // 0 -> Scatter test (3 SCATTERs)
+    {
+        {
+            {Symbol::SCATTER, Symbol::BANANA, Symbol::Q, Symbol::A, Symbol::SCATTER},
+            {Symbol::CHERRY, Symbol::Q, Symbol::PLUM, Symbol::Q, Symbol::WATERMELON},
+            {Symbol::A, Symbol::Q, Symbol::SCATTER, Symbol::PLUM, Symbol::BANANA}
+        },
+        {
+            {Symbol::WILD, Symbol::WILD, Symbol::WILD, Symbol::WILD, Symbol::WILD},
+            {Symbol::CHERRY, Symbol::Q, Symbol::WILD, Symbol::Q, Symbol::WATERMELON},
+            {Symbol::A, Symbol::Q, Symbol::SCATTER, Symbol::PLUM, Symbol::BANANA}
+        }
+    }
+
+};

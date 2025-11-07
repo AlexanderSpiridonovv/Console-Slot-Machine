@@ -1,4 +1,5 @@
 #include "Menu.h"
+//#include "Configurations"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -25,6 +26,7 @@ void Menu::DisplayMenu()const
     std::cout << "2. Press 'p' to play\n";
     std::cout << "3. Press 'i' for info\n";
     std::cout << "4. Press '3' to cashout and exit\n";
+    std::cout << "5. Press 'd' to enter demo mode\n";
     std::cout << "────────────────────────────────\n\n";
     std::cout << "Your choice: ";
 }
@@ -129,6 +131,8 @@ auto Menu::_playFreeSpin(int &spinsRemaining)const -> int
 
 auto Menu::PlayFreeGames() -> int
 {
+    
+    m_player -> GetPtr() -> SetDemoMode(false);
     if(!m_player-> CanStartFreeGames())
     {
         return 0;
@@ -177,7 +181,7 @@ auto Menu::Gamble(int initialSum) const -> int
         return 0;
     }
 
-    std::cout << "Press 'R' for red or 'B' for black:\n";
+    std::cout << "Press 'R' for RED or 'B' for BLACK:\n";
     std::string inputColor;
     std::cin >> inputColor;
 
@@ -204,4 +208,53 @@ auto Menu::Gamble(int initialSum) const -> int
         std::cout << "Total out: "<< initialSum << '\n';
         return initialSum;
     }
+}
+void Menu::PlayFeature()
+{
+    int normalWin = Spin();
+    int freeWin = 0;
+    if(m_player -> CanStartFreeGames())
+    {
+        freeWin = PlayFreeGames();
+    }
+    //current win
+    int totalWin = normalWin + freeWin;
+    if(totalWin > 0)
+    {
+        int toDeposit = Gamble(totalWin);
+        Deposit(toDeposit);
+    }
+}
+void Menu::PlayDemo()
+{
+    std::cout << "\nYOU ENTERED DEMO MODE ! \n\n";
+    bool running = true;
+    m_player -> GetPtr() -> SetDemoMode(true);
+    while(running)
+    {
+        std::cout << "\nEnter 0 for 3 Scatters\n";
+        std::cout << "Enter 1 for 5 WILDS\n";
+        PlayFeature();//the cin is in _populateSlot
+        std::cout << "\nIf you still want to be in demo mode, press 'y', else press 'n'.\n";
+        std::string choice;
+        std::cin >> choice;
+        if(choice == "n")
+        {
+            running = false;
+            m_player -> GetPtr() -> SetDemoMode(false);
+            break;
+        }
+        else if(choice == "y")
+        {
+            m_player -> GetPtr() -> SetDemoMode(true);
+        }
+        else
+        {
+            std::cout << "Invalid choice, exiting...\n";
+            running = false;
+            m_player -> GetPtr() -> SetDemoMode(false);
+            break;
+        }
+    }
+    m_player -> GetPtr() -> SetDemoMode(false);
 }

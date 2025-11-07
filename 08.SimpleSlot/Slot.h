@@ -16,10 +16,14 @@ public:
     auto Play() -> int;
     auto PlayFreeGames() -> int;
     auto GetScatterCount() -> int;
+
+    void SetDemoMode(bool);
+    Slot& operator=(const std::vector<std::vector<Symbol>> slot);
     
 private:
     Symbol m_slot [Rows][Reels];
     int m_scatterCount = 0;
+    bool m_demoMode = false;
     
     auto _generateSymbol(int max) const -> Symbol;
     auto _generateSymbolNoScatter() const -> Symbol;
@@ -44,4 +48,6 @@ private:
     void _printWinnigsFromLineN(int N, const std::vector<int>& line) const;
     void _printAllWinnings(int totalWin)const;
 
+    void _setScattersToThree();
+    auto _calculateScatterCount(const std::vector<std::vector<Symbol>> slot)const -> int;
 };
