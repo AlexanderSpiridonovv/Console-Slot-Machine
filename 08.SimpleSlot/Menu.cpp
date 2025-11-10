@@ -94,9 +94,9 @@ void Menu::CashOut()
 
 void Menu::Countdown(int seconds)const
 {
-    std::cin.clear();
+    /*std::cin.clear();
     //saw it on internet, tries to clear input during countdown
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
     for (int i = seconds; i > 0; i--) {
         std::cout << i << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -243,8 +243,11 @@ void Menu::_playDemo()
     while(running)
     {
         std::cout << "Enter 0 for 3 SCATTERS\n";
-        std::cout << "Enter 1 for 5 WILDS";
+        std::cout << "Enter 1 for 5 WILDS\n";
+        std::cout << "Enter 2 for A A W K K";
+
         PlayFeature(); //the cin is in _populateSlot
+        
         std::cout << "\nIf you still want to be in demo mode, press 'y', else press 'n'.\n";
         std::string choice;
         std::cin >> choice;

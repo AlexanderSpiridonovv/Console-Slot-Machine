@@ -16,6 +16,12 @@ std::vector<std::vector<std::vector<Symbol>>> configurations =
             {Symbol::WILD, Symbol::WILD, Symbol::WILD, Symbol::WILD, Symbol::WILD},
             {Symbol::CHERRY, Symbol::Q, Symbol::WILD, Symbol::Q, Symbol::WATERMELON},
             {Symbol::A, Symbol::Q, Symbol::SCATTER, Symbol::PLUM, Symbol::BANANA}
+        },
+        //2 -> AAWKK
+        {
+            {Symbol::A, Symbol::A, Symbol::WILD, Symbol::K, Symbol::K},
+            {Symbol::CHERRY, Symbol::Q, Symbol::WILD, Symbol::Q, Symbol::WATERMELON},
+            {Symbol::A, Symbol::Q, Symbol::SCATTER, Symbol::PLUM, Symbol::BANANA}
         }
     }
 
