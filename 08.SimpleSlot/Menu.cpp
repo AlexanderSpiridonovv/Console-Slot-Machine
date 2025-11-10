@@ -94,14 +94,16 @@ void Menu::CashOut()
 
 void Menu::Countdown(int seconds)const
 {
-    /*std::cin.clear();
+    std::cin.clear();
     //saw it on internet, tries to clear input during countdown
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     for (int i = seconds; i > 0; i--) {
         std::cout << i << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
     std::cout << "\nGo!\n\n";
+    /*std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 }
 
 auto Menu::_playFreeSpin(int &spinsRemaining)const -> int 
@@ -170,7 +172,7 @@ void Menu::Deposit(int sum)
 
 auto Menu::Gamble(int initialSum) const -> int
 {
-    std::cout << "Press 'g' to gamble or any other key to quit.\n";
+    std::cout << "\nPress 'g' to gamble or any other key to quit.\n";
     std::string input;
     std::cin >> input;
 
@@ -179,7 +181,7 @@ auto Menu::Gamble(int initialSum) const -> int
         std::cout << "\nTotal out: "<< initialSum << '\n';
         return initialSum;
     }
-
+    //extra check
     if (initialSum == 0) 
     {
         return 0;
@@ -242,14 +244,14 @@ void Menu::_playDemo()
     {
         std::cout << "Enter 0 for 3 SCATTERS\n";
         std::cout << "Enter 1 for 5 WILDS";
-        PlayFeature();//the cin is in _populateSlot
+        PlayFeature(); //the cin is in _populateSlot
         std::cout << "\nIf you still want to be in demo mode, press 'y', else press 'n'.\n";
         std::string choice;
         std::cin >> choice;
         if(choice == "n")
         {
-            running = false;
             m_player -> GetPtr() -> SetDemoMode(false);
+            running = false;
             break;
         }
         else if(choice == "y")
@@ -273,7 +275,10 @@ void Menu::PlayDemoSafe()
     {      
         _playDemo();
     }
-            
+    catch (const std::invalid_argument& e) 
+    {       
+        std::cout << "\n❌ " << e.what() << "\n";    
+    }
     catch (const std::logic_error& e) 
     {       
         std::cout << "\n❌ " << e.what() << "\n";    

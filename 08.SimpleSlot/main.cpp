@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Player.h"
 #include "Menu.h"
-//#include "Configurations"
 
 int main()
 {

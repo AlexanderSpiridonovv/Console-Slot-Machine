@@ -5,8 +5,6 @@
 #include <iostream>
 #include <random>
 #include <utility>
-#include <thread>
-#include <chrono>
 
 const int INVALID_KEY = -1;
 
@@ -28,9 +26,16 @@ void Slot::_populateSlot()
 {
     if(m_demoMode)
     {
-        unsigned i;
-        std::cin >> i;
-        *this = configurations.at(i);
+        unsigned configurationIndex;
+        std::cin >> configurationIndex;
+        if(std::cin.fail())
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            configurationIndex = -1;
+        }
+        //predefined operator=
+        *this = configurations.at(configurationIndex);
         return;
     }
     m_scatterCount = 0;
@@ -66,7 +71,6 @@ void Slot::_populateSlot()
            }
         }
     }
-    //m_scatterCount = 3;
 }
 
 void Slot::_printMatrix()const
@@ -344,10 +348,6 @@ auto Slot::Play() -> int
     return total;
 }
 
-void Slot::_setScattersToThree()
-{
-    m_scatterCount = 3;
-}
 //can be slightly optimized
 auto Slot::_calculateScatterCount(const std::vector<std::vector<Symbol>> slot)const -> int
 {

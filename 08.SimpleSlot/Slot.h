@@ -48,6 +48,5 @@ private:
     void _printWinnigsFromLineN(int N, const std::vector<int>& line) const;
     void _printAllWinnings(int totalWin)const;
 
-    void _setScattersToThree();
     auto _calculateScatterCount(const std::vector<std::vector<Symbol>> slot)const -> int;
 };
