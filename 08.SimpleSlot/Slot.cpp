@@ -8,9 +8,10 @@
 
 const int INVALID_KEY = -1;
 
+static std::mt19937 rng(std::random_device{}());
+
 auto Slot::_generateSymbol(int max)const -> Symbol
 {
-    static std::mt19937 rng(std::random_device{}());
     std::uniform_int_distribution<int> dist(0, max);
     return static_cast<Symbol>(dist(rng));
 }
@@ -363,4 +364,23 @@ auto Slot::_calculateScatterCount(const std::vector<std::vector<Symbol>> slot)co
         }
     }
     return count;
+}
+
+auto Slot::_generateRedBlack()const -> char
+{
+    std::uniform_int_distribution<int> dist(0, 1);
+    int res = dist(rng);
+    if(res == 0)
+    {
+        return 'R';
+    }
+    return 'B';
+}
+auto Slot::SimpleGamble(char input, int initialSum) -> int
+{
+    if(input == _generateRedBlack())
+    {
+        return initialSum * 2;
+    }
+    return 0;
 }

@@ -17,6 +17,7 @@ public:
     auto PlayFreeGames() -> int;
     auto GetScatterCount() -> int;
 
+    auto SimpleGamble(char input, int initialSum) -> int;
     void SetDemoMode(bool);
     Slot& operator=(const std::vector<std::vector<Symbol>>& slot);
     
@@ -49,4 +50,5 @@ private:
     void _printAllWinnings(int totalWin)const;
 
     auto _calculateScatterCount(const std::vector<std::vector<Symbol>> slot)const -> int;
+    auto _generateRedBlack()const -> char;
 };

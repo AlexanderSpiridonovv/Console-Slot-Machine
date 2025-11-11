@@ -54,22 +54,3 @@ auto Player::GetPtr()const -> std::shared_ptr<Slot>
 {
     return m_slot;
 }
-auto Player::_generateRedBlack()const -> char
-{
-    static std::mt19937 rng(std::random_device{}());
-    std::uniform_int_distribution<int> dist(0, 1);
-    int res = dist(rng);
-    if(res == 0)
-    {
-        return 'R';
-    }
-    return 'B';
-}
-auto Player::SimpleGamble(char input, int initialSum) -> int
-{
-    if(input == _generateRedBlack())
-    {
-        return initialSum * 2;
-    }
-    return 0;
-}

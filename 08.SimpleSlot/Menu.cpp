@@ -194,7 +194,7 @@ auto Menu::Gamble(int initialSum) const -> int
     if (inputColor == "R" || inputColor == "B") 
     {
         //can return 0
-        int win = m_player -> SimpleGamble(inputColor[0], initialSum);
+        int win = m_player -> GetPtr() -> SimpleGamble(inputColor[0], initialSum);
 
         if (win != 0) 
         {
@@ -247,7 +247,7 @@ void Menu::_playDemo()
         std::cout << "Enter 2 for A A W K K";
 
         PlayFeature(); //the cin is in _populateSlot
-        
+
         std::cout << "\nIf you still want to be in demo mode, press 'y', else press 'n'.\n";
         std::string choice;
         std::cin >> choice;
