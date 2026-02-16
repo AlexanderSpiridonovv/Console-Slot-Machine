@@ -16,7 +16,8 @@ as a practical exploration of slot game mechanics, payout evaluation, and bonus 
 - Scatter symbol detection across reels
 
 ### 🎁 Bonus System
-- Triggered when 3 or more scatter symbols appear
+- Triggered when 3 scatter symbols appear
+- Retrigger if 3 scatters appear during bonus spins
 - Separate bonus game mode
 
 ### 🎯 Gamble Feature
